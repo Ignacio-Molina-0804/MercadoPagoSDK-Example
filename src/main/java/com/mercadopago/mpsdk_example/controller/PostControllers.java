@@ -1,6 +1,7 @@
 package com.mercadopago.mpsdk_example.controller;
 
 import com.mercadopago.MercadoPagoConfig;
+import com.mercadopago.client.preference.PreferenceBackUrlsRequest;
 import com.mercadopago.client.preference.PreferenceClient;
 import com.mercadopago.client.preference.PreferenceItemRequest;
 import com.mercadopago.client.preference.PreferenceRequest;
@@ -25,7 +26,12 @@ public class PostControllers {
     public String mercado() throws MPException, MPApiException {
 
         MercadoPagoConfig.setAccessToken("PROD_ACCESS_TOKEN");
-        
+    
+        PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
+                        .success("https://www.tu-sitio/success")
+                        .pending("https://www.tu-sitio/pending")
+                        .failure("https://www.tu-sitio/failure")
+                        .build();
 
         PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
                 .id("1234")
@@ -42,7 +48,7 @@ public class PostControllers {
 
         items.add(itemRequest);
         PreferenceRequest preferenceRequest = PreferenceRequest.builder()
-                .items(items).build();
+                .items(items).backUrls(backUrls).build();
 
         PreferenceClient client = new PreferenceClient();
 
