@@ -1,72 +1,80 @@
-# MercadoPagoSDK 🚀
+# MercadoPagoSDK-example 🚀
 
-¡Bienvenido al ejemplo más fachero para cobrar con Mercado Pago usando Spring Boot!  
-Acá tenés todo lo que necesitás para armar tu propio link de pago y testearlo en sandbox, sin vueltas y sin dramas.
-
----
-
-## ✨ ¿Qué hace esta app?
-
-- Levantás el server y le pegás a [`/api/mercado`](http://localhost:8080/api/mercado)
-- Te devuelve un link de pago de Mercado Pago (modo sandbox, así que podés probar tranqui)
-- Todo hecho en Java 17, con Spring Boot y el SDK oficial de Mercado Pago
+Bienvenido a **MercadoPagoSDK-example**, un proyecto pensado para que puedas integrar Mercado Pago en tus aplicaciones Java de forma rápida, sencilla y segura.  
+Ideal para quienes quieren probar el flujo de pagos sin complicaciones, usando lo último de Java y Spring Boot.
 
 ---
 
-## 🛠️ ¿Cómo está armado?
+## 🌟 ¿Qué hace esta aplicación?
+
+Esta app expone un endpoint REST (`/api/mercado`) que, al ser invocado, crea una preferencia de pago en Mercado Pago y te devuelve un enlace listo para probar en modo sandbox.  
+Perfecto para simular compras y validar tu integración antes de salir a producción.
+
+---
+
+## 🗂️ Estructura del proyecto
 
 - **PostControllers.java**  
-  Acá está la magia: se arma la preferencia, se pone el token, los ítems, las URLs de retorno y te devuelve el link.
+  Controlador principal donde se configura la preferencia de pago, el token de acceso, los ítems y las URLs de retorno.
 - **application.properties**  
-  Configuración de la base de datos (H2, para no complicarse) y el nombre de la app.
+  Configuración de la base de datos (H2 en memoria) y parámetros generales de la app.
 - **pom.xml**  
-  Todas las dependencias que hacen que esto funcione.
+  Todas las dependencias y configuración de Maven para que todo funcione sin problemas.
 
 ---
 
-## 🚦 ¿Cómo funcionan las URLs de retorno?
+## 🔄 URLs de retorno: ¿cómo funcionan?
 
-Cuando el usuario paga (o cancela), Mercado Pago lo redirige a una URL según el resultado:
+Mercado Pago te permite definir a dónde redirigir al usuario según el resultado del pago:
 
-- **success**: Si el pago fue exitoso, te manda a la URL que pusiste como `success`.
-- **failure**: Si el pago falló, te manda a la URL de `failure`.
-- **pending**: Si el pago quedó pendiente, te manda a la URL de `pending`.
+- **success**: El pago fue aprobado exitosamente.
+- **failure**: El pago fue rechazado o falló.
+- **pending**: El pago quedó pendiente de aprobación.
 
-En el controlador, podés cambiar estas URLs para que apunten a donde quieras (tu frontend, una página de gracias, etc).  
-¡Así sabés siempre cómo terminó la compra y podés mostrarle al usuario el mensaje que quieras!
-
----
-
-## ⚡ ¿Qué necesitás para correrlo?
-
-- Java 17 (sí o sí)
-- Maven (ya viene el wrapper, así que ni lo instalás)
+Estas URLs se pueden personalizar en el controlador para que apunten a tu frontend, una página de agradecimiento, o cualquier endpoint propio. Así, podés controlar la experiencia del usuario en cada caso y mostrarle el mensaje adecuado.
 
 ---
 
-## 🚀 ¿Cómo lo corrés?
+## ⚙️ Requisitos
 
-1. Instalá las dependencias:
+- Java 17
+- Maven (no hace falta instalarlo, podés usar el wrapper incluido)
+
+---
+
+## 🚀 ¿Cómo ejecutar la aplicación?
+
+1. **Instalá las dependencias:**
    ```sh
    ./mvnw clean install
    ```
-2. Levantá el server:
+2. **Levantá el servidor:**
    ```sh
    ./mvnw spring-boot:run
    ```
-3. Abrí el navegador y andá a [http://localhost:8080/api/mercado](http://localhost:8080/api/mercado)  
-   ¡Listo! Te sale el link para pagar.
+3. **Probá el endpoint:**  
+   Abrí tu navegador y andá a [http://localhost:8080/api/mercado](http://localhost:8080/api/mercado)  
+   ¡Listo! Vas a recibir un link de pago para testear.
 
 ---
 
-## 💡 Tips facheros
+## 💡 Consejos útiles
 
-- Cambiá `"PROD_ACCESS_TOKEN"` por tu token posta de Mercado Pago en el controlador.
-- Si querés agregar más endpoints, meté más controladores en el package `controller`.
-- La base de datos es H2, así que no tenés que instalar nada raro.
-- Las URLs de retorno podés tunearlas para que apunten a tu web, a un endpoint propio, o a donde quieras.
+- No olvides reemplazar `"PROD_ACCESS_TOKEN"` en el controlador por tu token real de Mercado Pago para hacer pruebas con tu cuenta.
+- La base de datos es H2 en memoria, ideal para desarrollo y pruebas rápidas.
+- Si querés sumar más funcionalidades, podés crear nuevos endpoints agregando controladores en el paquete `controller`.
 
 ---
 
-Hecho para que lo entiendas al toque y lo uses sin vueltas.  
-¡A cobrar se
+## 📚 Documentación oficial
+
+¿Querés profundizar más?  
+Encontrá toda la info sobre cómo crear aplicaciones y preferencias de pago en la documentación oficial de Mercado Pago:
+
+👉 [Mercado Pago - Crear aplicación (Checkout Pro)](https://www.mercadopago.com.ar/developers/es/docs/checkout-pro/create-application)
+
+---
+
+¡Esperamos que este proyecto te ayude a integrar Mercado Pago de manera simple y efectiva!  
+Si tenés dudas o sugerencias, no dudes en mejorar este ejemplo.  
+¡A cobrar se ha dicho! 💸
