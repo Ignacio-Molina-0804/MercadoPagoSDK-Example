@@ -1,4 +1,4 @@
-package Controller;
+package com.mercadopago.mpsdk_example.controller;
 
 import com.mercadopago.MercadoPagoConfig;
 import com.mercadopago.client.preference.PreferenceClient;
@@ -25,7 +25,7 @@ public class PostControllers {
     public String mercado() throws MPException, MPApiException {
 
         MercadoPagoConfig.setAccessToken("PROD_ACCESS_TOKEN");
-    
+        
 
         PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
                 .id("1234")
